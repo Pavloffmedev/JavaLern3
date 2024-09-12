@@ -70,3 +70,55 @@ class Manager extends Worker {
     }
 }
 
+
+/**
+ * Задание 3: Создайте интерфейс Animal с методом makeSound().
+ * Реализуйте классы Dog, Cat, и Cow, которые реализуют этот интерфейс.
+ * Продемонстрируйте полиморфизм на примере массива животных.
+ */
+interface Animal {
+    void makeSound();
+}
+
+class Dog implements  Animal{
+    private String name;
+
+    Dog(String name) {
+        this.name = name;
+    }
+
+
+    @Override
+    public void makeSound() {
+        System.out.println(name + " сказала гав");
+    }
+}
+
+class Cat implements  Animal{
+    private String name;
+
+    Cat(String name) {
+        this.name = name;
+    }
+
+
+    @Override
+    public void makeSound() {
+        System.out.println(name + " сказала мяу");
+    }
+}
+
+class Cow implements  Animal{
+    private String name;
+
+    Cow(String name) {
+        this.name = name;
+    }
+
+
+    @Override
+    public void makeSound() {
+        System.out.println(name + " сказала му");
+    }
+}
+
