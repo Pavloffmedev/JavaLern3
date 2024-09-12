@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
@@ -43,3 +44,29 @@ class Person {
     }
 
 }
+
+
+/**
+ * Задание 2: Создайте класс Worker, который наследуется от класса Person, и добавьте поле salary.
+ * Создайте класс Manager, который наследует от Worker и добавляет поле для подчиненных сотрудников.
+ */
+class Worker extends Person {
+
+    private int salary;
+
+    Worker(String name, int age, Gender gender, int salary) {
+        super(name, age, gender);
+        this.salary = salary;
+    }
+}
+
+class Manager extends Worker {
+
+    private ArrayList<Worker> workersInSubordination;
+    private
+    Manager(String name, int age, Gender gender, int salary, ArrayList<Worker> workers) {
+        super(name, age, gender, salary);
+        workersInSubordination = workers;
+    }
+}
+
