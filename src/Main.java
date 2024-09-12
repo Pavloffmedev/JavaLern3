@@ -232,3 +232,42 @@ class Counter {
         countOfObjects ++;
     }
 }
+
+
+/**
+ * Задание 8: Создайте абстрактный класс Shape с абстрактным методом getArea().
+ * Реализуйте классы Circle и Rectangle, которые наследуют от Shape и вычисляют площадь круга и прямоугольника соответственно.
+ */
+abstract class Shape {
+    abstract double getArea();
+}
+
+class Circle extends Shape {
+
+    private double radius;
+
+    Circle(double radius) {
+        this.radius = radius;
+    }
+    @Override
+    double getArea() {
+        return Math.PI * Math.pow(radius, 2);
+    }
+}
+
+class Rectangle extends Shape {
+
+    private double a, b;
+
+    Rectangle(double a, double b) {
+        this.a = a;
+        this.b = b;
+    }
+
+
+    @Override
+    double getArea() {
+        return a * b;
+    }
+}
+
