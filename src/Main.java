@@ -1,8 +1,9 @@
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
-
+        Person a = new Person("", 11, Gender.FEMAIL);
     }
 
 
@@ -127,7 +128,6 @@ class Cow implements  Animal{
  * Задание 4: Создайте абстрактный класс Transport с абстрактным методом move().
  * Реализуйте классы Car и Bike, которые наследуются от Transport и реализуют метод move()
  */
-
 abstract class Transport {
     abstract void move();
 }
@@ -146,3 +146,82 @@ class Bike extends Transport {
     }
 }
 
+
+/**
+ * Задание 5: Создайте класс Book с полями title, author, и year.
+ * Создайте класс Library, который содержит коллекцию книг и методы для добавления книг, поиска по автору и году публикации
+ */
+class Book {
+    String title;
+    String author;
+    int year;
+
+    Book(String title, String author, int year) {
+        this.title = title;
+        this.author = author;
+        this.year = year;
+    }
+
+    void printInfo() {
+        System.out.println("ИНФОРИАЦИЯ О " + title);
+        System.out.println("год: " + year);
+        System.out.println("автор: " + author);
+    }
+}
+
+class Library {
+
+    private ArrayList<Book> books;
+
+    Library(ArrayList<Book> books) {
+        this.books = books;
+    }
+
+    void addBooks(ArrayList<Book> books) {
+        this.books.addAll(books);
+    }
+
+    ArrayList<Book> findByAuthor(String author) {
+         return (ArrayList<Book>) books.stream().filter(book -> book.author.equals(author)).collect(Collectors.toList());
+    }
+
+    ArrayList<Book> findByYear(int year) {
+        return (ArrayList<Book>) books.stream().filter(book -> book.year == year).collect(Collectors.toList());
+    }
+
+}
+
+
+/**
+ * Задание 6: Создайте класс BankAccount с полями accountNumber, balance, и методами для пополнения и снятия средств.
+ * Обеспечьте инкапсуляцию для безопасности данных счета.
+ */
+class BankAccount {
+
+    private String accountNumber;
+    private double balance = 0;
+
+    BankAccount(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    double getBalance() {
+        return balance;
+    }
+
+    void cashIn(double cash) {
+        balance += cash;
+    }
+
+    void cashOut(double cash) {
+        if (cash <= balance) {
+            balance -= cash;
+        }
+    }
+}
+
+
+/**
+ * Задание 7: Создайте класс BankAccount с полями accountNumber, balance, и методами для пополнения и снятия средств.
+ * Обеспечьте инкапсуляцию для безопасности данных счета.
+ */
