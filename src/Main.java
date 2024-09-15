@@ -507,3 +507,280 @@ class UniqueID {
 }
 
 
+/**
+ * Задание 14: Создайте класс Point с координатами x и y.
+ * Реализуйте класс Rectangle, который содержит две точки (левая верхняя и правая нижняя).
+ * Реализуйте метод для вычисления площади прямоугольника
+ */
+class Point {
+    private final int x;
+    private final int y;
+
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+}
+
+class Rectangle2 {
+    private final Point topLeft;
+    private final Point bottomRight;
+
+    public Rectangle2(Point topLeft, Point bottomRight) {
+        this.topLeft = topLeft;
+        this.bottomRight = bottomRight;
+    }
+
+    public int calculateArea() {
+        int width = Math.abs(bottomRight.getX() - topLeft.getX());
+        int height = Math.abs(topLeft.getY() - bottomRight.getY());
+        return width * height;
+    }
+}
+
+
+/**
+ * Задание 15: Создайте класс ComplexNumber с полями для действительной и мнимой частей. Реализуйте методы для сложения, вычитания, умножения и деления комплексных чисел
+ */
+class ComplexNumber {
+    private final double real;
+    private final double imaginary;
+
+    public ComplexNumber(double real, double imaginary) {
+        this.real = real;
+        this.imaginary = imaginary;
+    }
+
+    public ComplexNumber add(ComplexNumber other) {
+        double newReal = this.real + other.real;
+        double newImaginary = this.imaginary + other.imaginary;
+        return new ComplexNumber(newReal, newImaginary);
+    }
+
+    public ComplexNumber subtract(ComplexNumber other) {
+        double newReal = this.real - other.real;
+        double newImaginary = this.imaginary - other.imaginary;
+        return new ComplexNumber(newReal, newImaginary);
+    }
+
+    public ComplexNumber multiply(ComplexNumber other) {
+        double newReal = this.real * other.real - this.imaginary * other.imaginary;
+        double newImaginary = this.real * other.imaginary + this.imaginary * other.real;
+        return new ComplexNumber(newReal, newImaginary);
+    }
+
+    public ComplexNumber divide(ComplexNumber other) {
+        double denominator = other.real * other.real + other.imaginary * other.imaginary;
+        double newReal = (this.real * other.real + this.imaginary * other.imaginary) / denominator;
+        double newImaginary = (this.imaginary * other.real - this.real * other.imaginary) / denominator;
+        return new ComplexNumber(newReal, newImaginary);
+    }
+
+    @Override
+    public String toString() {
+        return real + " + " + imaginary + "i";
+    }
+}
+
+
+/**
+ * Задание 16: Создайте класс Matrix, представляющий двумерную матрицу.
+ * Реализуйте методы для сложения и умножения матриц. Продемонстрируйте перегрузку методов
+ */
+class Matrix {
+    private final int[][] data; // Двумерный массив для хранения элементов матрицы
+    private final int rows;     // Количество строк
+    private final int cols;     // Количество столбцов
+
+    public Matrix(int[][] data) {
+        this.rows = data.length;
+        this.cols = data[0].length;
+        this.data = new int[rows][cols];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                this.data[i][j] = data[i][j];
+            }
+        }
+    }
+
+    public Matrix add(Matrix other) {
+        if (this.rows != other.rows || this.cols != other.cols) {
+            throw new IllegalArgumentException("Невозможно сложить матрицы");
+        }
+
+        int[][] result = new int[rows][cols];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                result[i][j] = this.data[i][j] + other.data[i][j];
+            }
+        }
+
+        return new Matrix(result);
+    }
+
+    public Matrix add(int scalar) {
+        int[][] result = new int[rows][cols];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                result[i][j] = this.data[i][j] + scalar;
+            }
+        }
+
+        return new Matrix(result);
+    }
+
+    public Matrix multiply(Matrix other) {
+        if (this.cols != other.rows) {
+            throw new IllegalArgumentException("Невозможно перемножить матрицы");
+        }
+
+        int[][] result = new int[this.rows][other.cols];
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < other.cols; j++) {
+                result[i][j] = 0;
+                for (int k = 0; k < this.cols; k++) {
+                    result[i][j] += this.data[i][k] * other.data[k][j];
+                }
+            }
+        }
+
+        return new Matrix(result);
+    }
+
+    public Matrix multiply(int scalar) {
+        int[][] result = new int[rows][cols];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                result[i][j] = this.data[i][j] * scalar;
+            }
+        }
+
+        return new Matrix(result);
+    }
+
+    public void print() {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                System.out.print(data[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+
+
+/**
+ * Задание 17: Реализуйте классы для небольшой текстовой игры, такие как Player, Enemy, Weapon, с полями и методами, описывающими их поведение
+ */
+class Weapon {
+    private String name;
+    private int damage;
+
+    public Weapon(String name, int damage) {
+        this.name = name;
+        this.damage = damage;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void display() {
+        System.out.println("Оружие: " + name + ", урон: " + damage);
+    }
+}
+
+class Player {
+    private final String name;
+    private int health;
+    private Weapon weapon;
+
+    public Player(String name, int health) {
+        this.name = name;
+        this.health = health;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void equipWeapon(Weapon weapon) {
+        this.weapon = weapon;
+        System.out.println(name + " оружие " + weapon.getName());
+    }
+
+    public void attack(Enemy enemy) {
+        if (weapon == null) {
+            System.out.println(name + " нет оружия для аттаки");
+            return;
+        }
+
+        System.out.println(name + " атакует " + enemy.getName() + " с " + weapon.getName());
+        enemy.takeDamage(weapon.getDamage());
+    }
+
+    public void takeDamage(int damage) {
+        health -= damage;
+        if (health < 0) health = 0;
+        System.out.println(name + " получил " + damage + " урон. ХП " + health);
+    }
+
+    public boolean isAlive() {
+        return health > 0;
+    }
+
+    public void displayStatus() {
+        System.out.println("Игрок: " + name + ", ХП: " + health);
+        if (weapon != null) {
+            weapon.display();
+        }
+    }
+}
+
+class Enemy {
+    private final String name;
+    private int health;
+    private final int attackPower;
+
+    public Enemy(String name, int health, int attackPower) {
+        this.name = name;
+        this.health = health;
+        this.attackPower = attackPower;
+    }
+
+    public void attack(Player player) {
+        System.out.println(name + " атакует " + player.getName());
+        player.takeDamage(attackPower);
+    }
+
+    public void takeDamage(int damage) {
+        health -= damage;
+        if (health < 0) health = 0;
+        System.out.println(name + " получает " + damage + " урон. ХП " + health);
+    }
+
+    public boolean isAlive() {
+        return health > 0;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void displayStatus() {
+        System.out.println("Враг: " + name + ", ХП: " + health);
+    }
+}
