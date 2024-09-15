@@ -364,3 +364,146 @@ class University {
 }
 
 
+/**
+ * Задание 11: Реализуйте класс Product с полями name, price, и quantity.
+ * Создайте класс Store, который содержит список продуктов и методы для добавления, удаления и поиска товаров по имени
+ */
+class Product {
+    private String name;
+    private double price;
+    private int quantity;
+
+    // Конструктор
+    public Product(String name, double price, int quantity) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    // Геттеры и сеттеры
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "name='" + name + "', price=" + price + ", quantity=" + quantity;
+    }
+}
+
+class Store {
+    private ArrayList<Product> products;
+
+
+    public Store() {
+        this.products = new ArrayList<>();
+    }
+
+
+    public void addProduct(Product product) {
+        products.add(product);
+    }
+
+    public boolean removeProductByName(String name) {
+        return products.removeIf(product -> product.getName().equalsIgnoreCase(name));
+    }
+
+    public Product findProductByName(String name) {
+        for (Product product : products) {
+            if (product.getName().equalsIgnoreCase(name)) {
+                return product;
+            }
+        }
+        return null;
+    }
+
+    public void displayProducts() {
+        for (Product product : products) {
+            System.out.println(product);
+        }
+    }
+}
+
+
+/**
+ * Задачи 12: Создайте интерфейс PaymentSystem с методами pay() и refund().
+ * Реализуйте классы CreditCard и PayPal, которые реализуют этот интерфейс
+ */
+interface PaymentSystem {
+    void pay(double amount);
+    void refund(double amount);
+}
+
+class CreditCard implements PaymentSystem {
+    private String cardNumber;
+    private String cardHolderName;
+
+
+    public CreditCard(String cardNumber, String cardHolderName) {
+        this.cardNumber = cardNumber;
+        this.cardHolderName = cardHolderName;
+    }
+
+    @Override
+    public void pay(double amount) {
+        System.out.println("оплачено " + amount + " кредиткой [" + cardNumber + "]");
+    }
+
+    @Override
+    public void refund(double amount) {
+        System.out.println("возврат " + amount + " на кредитку [" + cardNumber + "]");
+    }
+}
+
+class PayPal implements PaymentSystem {
+    private String email;
+
+    public PayPal(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public void pay(double amount) {
+        System.out.println("оплачено " + amount + " PayPal [" + email + "]");
+    }
+
+    @Override
+    public void refund(double amount) {
+        System.out.println("возврат " + amount + " PayPal [" + email + "]");
+    }
+}
+
+
+/**
+ * Задание 13: Создайте класс UniqueID, который генерирует уникальные идентификаторы для объектов каждого созданного класса.
+ * Реализуйте этот функционал через статическое поле и метод
+ */
+class UniqueID {
+    private static int lastID = 0;
+
+    public static int generateID() {
+        return ++lastID;
+    }
+}
+
+
