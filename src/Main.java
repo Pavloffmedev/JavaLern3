@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -244,7 +245,7 @@ abstract class Shape {
 
 class Circle extends Shape {
 
-    private double radius;
+    private final double radius;
 
     Circle(double radius) {
         this.radius = radius;
@@ -257,7 +258,8 @@ class Circle extends Shape {
 
 class Rectangle extends Shape {
 
-    private double a, b;
+    private final double a;
+    private final double b;
 
     Rectangle(double a, double b) {
         this.a = a;
@@ -270,4 +272,95 @@ class Rectangle extends Shape {
         return a * b;
     }
 }
+
+
+/**
+ * Задание 9: Создайте класс Animal с методом move().
+ * Реализуйте классы Fish, Bird и Dog, которые наследуют Animal и переопределяют метод move() (рыба плавает, птица летает, собака бегает)
+ */
+class Animal2 {
+    void move() {
+        System.out.println("Животное двигается");
+    }
+}
+
+class Fish extends Animal2 {
+    @Override
+    void move() {
+        System.out.println("плавает рыба");
+    }
+}
+
+class Bird extends Animal2 {
+    @Override
+    void move() {
+        System.out.println("летает птица");
+    }
+}
+
+class Dog2 extends Animal2 {
+    @Override
+    void move() {
+        System.out.println("бегает собака");
+    }
+}
+
+
+/**
+ * Задание 10: Создайте класс Student с полями name, group, grade.
+ * Создайте класс University, который содержит список студентов и методы для добавления студентов, сортировки по имени и фильтрации по успеваемости
+ */
+class Student {
+    private String name;
+    private String group;
+    private int grade;
+
+    Student(String name, String group, int grade) {
+        this.name = name;
+        this.group = group;
+        this.grade = grade;
+    }
+
+    String getName() {
+        return name;
+    }
+
+    String getGroup() {
+        return group;
+    }
+
+    int getGrade() {
+        return grade;
+    }
+}
+
+class University {
+
+    private final ArrayList<Student> students;
+
+    University(ArrayList<Student> students) {
+        this.students = students;
+    }
+
+
+    void add(ArrayList<Student> students) {
+        this.students.addAll(students);
+    }
+
+    void add(Student student) {
+        this.students.add(student);
+    }
+
+    ArrayList<Student> sortByName() {
+        this.students.sort(Comparator.comparing(Student::getName));
+        return students;
+    }
+
+    ArrayList<Student> sortByGrade() {
+        this.students.sort(Comparator.comparingInt(Student::getGrade));
+        return students;
+    }
+
+}
+
 
