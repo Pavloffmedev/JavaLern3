@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -782,5 +783,225 @@ class Enemy {
 
     public void displayStatus() {
         System.out.println("Враг: " + name + ", ХП: " + health);
+    }
+}
+
+
+/**
+ * Задание 18: Создайте классы Order, Customer, и Product.
+ * Реализуйте систему, где можно добавлять заказы, отображать общую стоимость заказа и просматривать историю заказов
+ */
+class Product2 {
+    private String name;
+    private double price;
+
+    public Product2(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void display() {
+        System.out.println("Продукт: " + name + ", Цена: " + price);
+    }
+}
+
+class Order {
+    private ArrayList<Product2> products = new ArrayList<>();;
+    private double totalCost = 0.0;
+
+
+    public void addProduct(Product2 product) {
+        products.add(product);
+        totalCost += product.getPrice();
+        System.out.println(product.getName() + " добавлено в заказ");
+    }
+
+    public double calculateTotalCost() {
+        return totalCost;
+    }
+
+    public void displayOrder() {
+        System.out.println("Детали заказа:");
+        for (Product2 product : products) {
+            product.display();
+        }
+        System.out.println("Итого: " + totalCost);
+    }
+}
+
+
+/**
+ * Задание 19: Создайте класс Device с полем brand и методами turnOn() и turnOff().
+ * Реализуйте классы Smartphone и Laptop, которые наследуют от Device и добавляют уникальные методы, например, takePhoto() для смартфона
+ */
+class Device {
+    private final String brand;
+
+    public Device(String brand) {
+        this.brand = brand;
+    }
+
+    public void turnOn() {
+        System.out.println(brand + " включен");
+    }
+
+    public void turnOff() {
+        System.out.println(brand + " выключен");
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+}
+
+class Smartphone extends Device {
+
+    public Smartphone(String brand) {
+        super(brand);
+    }
+
+    public void takePhoto() {
+        System.out.println(getBrand() + " смартфон сделал фото");
+    }
+}
+
+class Laptop extends Device {
+
+    public Laptop(String brand) {
+        super(brand);
+    }
+
+    public void connectToNetwork() {
+        System.out.println(getBrand() + " ноутбук подключается к интернету");
+    }
+}
+
+
+/**
+ * Задание 20: Разработайте классы для игры "Крестики-нолики".
+ * Создайте класс Game, который управляет логикой игры, и классы Player, описывающие поведение игроков
+ */
+class Player2 {
+    private final String name;
+    private final char symbol;
+
+    public Player2(String name, char symbol) {
+        this.name = name;
+        this.symbol = symbol;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public char getSymbol() {
+        return symbol;
+    }
+}
+
+class Game {
+    private final char[][] board;
+    private final Player2 playerX;
+    private final Player2 playerO;
+    private Player2 currentPlayer;
+
+    // Конструктор
+    public Game(Player2 playerX, Player2 playerO) {
+        this.board = new char[3][3];
+        this.playerX = playerX;
+        this.playerO = playerO;
+        this.currentPlayer = playerX;
+        initializeBoard();
+    }
+
+    private void initializeBoard() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                board[i][j] = ' ';
+            }
+        }
+    }
+
+    private void displayBoard() {
+        System.out.println("  0 1 2");
+        for (int i = 0; i < 3; i++) {
+            System.out.print(i + " ");
+            for (int j = 0; j < 3; j++) {
+                System.out.print(board[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public boolean makeMove(int row, int col) {
+        if (row < 0 || row >= 3 || col < 0 || col >= 3 || board[row][col] != ' ') {
+            System.out.println("Невозможно так походить");
+            return false;
+        }
+
+        board[row][col] = currentPlayer.getSymbol();
+        return true;
+    }
+
+    private boolean checkWin() {
+        char symbol = currentPlayer.getSymbol();
+
+        for (int i = 0; i < 3; i++) {
+            if ((board[i][0] == symbol && board[i][1] == symbol && board[i][2] == symbol) ||
+                    (board[0][i] == symbol && board[1][i] == symbol && board[2][i] == symbol)) {
+                return true;
+            }
+        }
+
+        return (board[0][0] == symbol && board[1][1] == symbol && board[2][2] == symbol) ||
+                (board[0][2] == symbol && board[1][1] == symbol && board[2][0] == symbol);
+    }
+
+    private boolean checkDraw() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (board[i][j] == ' ') {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public void play() {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            displayBoard();
+            System.out.println(currentPlayer.getName() + ", Ваша очередь. Введите столбец и колонку (0-2): ");
+            int row = scanner.nextInt();
+            int col = scanner.nextInt();
+
+            if (makeMove(row, col)) {
+                if (checkWin()) {
+                    displayBoard();
+                    System.out.println(currentPlayer.getName() + " победил!");
+                    break;
+                }
+
+                if (checkDraw()) {
+                    displayBoard();
+                    System.out.println("Ничья!");
+                    break;
+                }
+
+                currentPlayer = (currentPlayer == playerX) ? playerO : playerX;
+            }
+        }
+
+        scanner.close();
     }
 }
